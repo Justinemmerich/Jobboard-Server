@@ -5,6 +5,7 @@ import cookieParser from 'cookie-parser';
 import BaseRouter from './routes';
 import swaggerUi from 'swagger-ui-express';
 import * as swaggerDocument from './swagger.json';
+var cors = require('cors')
 
 // Init express
 const app = express();
@@ -16,6 +17,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
+app.use(cors())
 
 /**
  * Show routes details in dev output in console during development
@@ -37,6 +39,7 @@ if (process.env.NODE_ENV === 'production') {
 /**
  * Registering base API routes
  */
+app.options('/api', cors()) 
 app.use('/api', BaseRouter);
 
 /**
